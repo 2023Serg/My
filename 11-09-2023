@@ -5,7 +5,7 @@
     "colab": {
       "provenance": [],
       "toc_visible": true,
-      "authorship_tag": "ABX9TyMRtuqbEijGaZ/Dm0+bQolD",
+      "authorship_tag": "ABX9TyOkt9mdP+CqzsREjJewCZyl",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -4976,7 +4976,7 @@
       "metadata": {
         "id": "1qhAGCUyGw1z"
       },
-      "execution_count": 56,
+      "execution_count": 73,
       "outputs": []
     },
     {
@@ -4989,9 +4989,9 @@
           "base_uri": "https://localhost:8080/"
         },
         "id": "QlQlJM6pOvV9",
-        "outputId": "6891e4e3-2657-4416-a78a-fa0aba6cbbf4"
+        "outputId": "cc4eca95-0bf8-4dd6-d12d-42d3c914e924"
       },
-      "execution_count": 57,
+      "execution_count": 74,
       "outputs": [
         {
           "output_type": "stream",
@@ -5048,7 +5048,7 @@
       "metadata": {
         "id": "8VL2l5IP2b7s"
       },
-      "execution_count": 58,
+      "execution_count": 75,
       "outputs": []
     },
     {
@@ -5061,9 +5061,9 @@
           "base_uri": "https://localhost:8080/"
         },
         "id": "ExJV3baY2iT-",
-        "outputId": "7c0a98eb-3462-4e5d-9810-4218893449aa"
+        "outputId": "8e2b789f-6c95-4d8e-948e-20efe4b72efb"
       },
-      "execution_count": 59,
+      "execution_count": 76,
       "outputs": [
         {
           "output_type": "execute_result",
@@ -5096,7 +5096,7 @@
             ]
           },
           "metadata": {},
-          "execution_count": 59
+          "execution_count": 76
         }
       ]
     },
@@ -5108,7 +5108,7 @@
       "metadata": {
         "id": "Dz6NbZnR2DBX"
       },
-      "execution_count": 60,
+      "execution_count": 77,
       "outputs": []
     },
     {
@@ -5121,9 +5121,9 @@
           "base_uri": "https://localhost:8080/"
         },
         "id": "Z0yqqE_b2M3B",
-        "outputId": "6b92f3b1-988c-43fc-c216-5e43d28951f2"
+        "outputId": "62da83a8-7bb3-4652-f244-6ea85adf7adc"
       },
-      "execution_count": 61,
+      "execution_count": 78,
       "outputs": [
         {
           "output_type": "execute_result",
@@ -5156,9 +5156,457 @@
             ]
           },
           "metadata": {},
-          "execution_count": 61
+          "execution_count": 78
         }
       ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Пустоты в столбце 'state' заполним '0', т.к. компания находится за переделами US**        "
+      ],
+      "metadata": {
+        "id": "u_90ghJ7E-BF"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df9 = df['state'].fillna(0, inplace=True)"
+      ],
+      "metadata": {
+        "id": "6SQu7_7JAbyg"
+      },
+      "execution_count": 133,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Фиксируем**"
+      ],
+      "metadata": {
+        "id": "_GNYuY15B9VM"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df10 = df.isna().sum()"
+      ],
+      "metadata": {
+        "id": "u9Vfjtn2CA0Y"
+      },
+      "execution_count": 135,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df10"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lyemohJUCOW0",
+        "outputId": "ec24ae7f-b8c9-4102-a8e8-a8cc8f537bd3"
+      },
+      "execution_count": 136,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "company_name            0\n",
+              "url                     0\n",
+              "city                    0\n",
+              "state                   0\n",
+              "country                 0\n",
+              "employees               0\n",
+              "linkedin_url            0\n",
+              "founded               185\n",
+              "Industry                0\n",
+              "GrowjoRanking           0\n",
+              "Previous Ranking        0\n",
+              "estimated_revenues      0\n",
+              "job_openings            0\n",
+              "keywords              558\n",
+              "LeadInvestors         511\n",
+              "Accelerator           915\n",
+              "btype                 848\n",
+              "valuation             470\n",
+              "total_funding         260\n",
+              "product_url             0\n",
+              "indeed_url              0\n",
+              "growth_percentage       0\n",
+              "contact_info            0\n",
+              "dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 136
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Столбец 'total_funding' заполним пердыдущими значениями**"
+      ],
+      "metadata": {
+        "id": "cX34K7qZQscK"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df11 = df['total_funding'].fillna(method='ffill', inplace=True)"
+      ],
+      "metadata": {
+        "id": "ZwGn0kz5BsEs"
+      },
+      "execution_count": 143,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df11 = df.isna().sum()"
+      ],
+      "metadata": {
+        "id": "Ef_qgkRATQFs"
+      },
+      "execution_count": 145,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Столбец 'founded' заполним средним значение по столбцу**"
+      ],
+      "metadata": {
+        "id": "bpqdyWWMZoE1"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df12 = df['founded'].fillna(df['founded'].mean(), inplace=True)"
+      ],
+      "metadata": {
+        "id": "OaFZ3A6wZl_k"
+      },
+      "execution_count": 147,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df11"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "rtRrPhpzTUYL",
+        "outputId": "00c75d7a-ef0e-4c63-de5c-1e3b14c4e187"
+      },
+      "execution_count": 146,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "company_name            0\n",
+              "url                     0\n",
+              "city                    0\n",
+              "state                   0\n",
+              "country                 0\n",
+              "employees               0\n",
+              "linkedin_url            0\n",
+              "founded               185\n",
+              "Industry                0\n",
+              "GrowjoRanking           0\n",
+              "Previous Ranking        0\n",
+              "estimated_revenues      0\n",
+              "job_openings            0\n",
+              "keywords              558\n",
+              "LeadInvestors         511\n",
+              "Accelerator           915\n",
+              "btype                 848\n",
+              "valuation             470\n",
+              "total_funding           0\n",
+              "product_url             0\n",
+              "indeed_url              0\n",
+              "growth_percentage       0\n",
+              "contact_info            0\n",
+              "dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 146
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df11 = df.isna().sum()"
+      ],
+      "metadata": {
+        "id": "HqkRITyKaOA9"
+      },
+      "execution_count": 148,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df11"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "kmA_lV6paTfv",
+        "outputId": "db514e29-fbce-4aac-b6be-d123e1a93d96"
+      },
+      "execution_count": 149,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "company_name            0\n",
+              "url                     0\n",
+              "city                    0\n",
+              "state                   0\n",
+              "country                 0\n",
+              "employees               0\n",
+              "linkedin_url            0\n",
+              "founded                 0\n",
+              "Industry                0\n",
+              "GrowjoRanking           0\n",
+              "Previous Ranking        0\n",
+              "estimated_revenues      0\n",
+              "job_openings            0\n",
+              "keywords              558\n",
+              "LeadInvestors         511\n",
+              "Accelerator           915\n",
+              "btype                 848\n",
+              "valuation             470\n",
+              "total_funding           0\n",
+              "product_url             0\n",
+              "indeed_url              0\n",
+              "growth_percentage       0\n",
+              "contact_info            0\n",
+              "dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 149
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Столбец 'valuation' заполним медианой**"
+      ],
+      "metadata": {
+        "id": "XNGo7uzWaZso"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df13 = df['valuation'].fillna(df['valuation'].median(), inplace=True)"
+      ],
+      "metadata": {
+        "id": "fvhJNejDapos"
+      },
+      "execution_count": 160,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df13 = df.isna().sum()"
+      ],
+      "metadata": {
+        "id": "9YT8V33lbBID"
+      },
+      "execution_count": 161,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df13"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "USDPy0uAbDx2",
+        "outputId": "4a063507-043c-4d47-a00d-a05cb896f8e9"
+      },
+      "execution_count": 162,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "company_name            0\n",
+              "url                     0\n",
+              "city                    0\n",
+              "state                   0\n",
+              "country                 0\n",
+              "employees               0\n",
+              "linkedin_url            0\n",
+              "founded                 0\n",
+              "Industry                0\n",
+              "GrowjoRanking           0\n",
+              "Previous Ranking        0\n",
+              "estimated_revenues      0\n",
+              "job_openings            0\n",
+              "keywords              558\n",
+              "LeadInvestors         511\n",
+              "Accelerator           915\n",
+              "btype                 848\n",
+              "valuation               0\n",
+              "total_funding           0\n",
+              "product_url             0\n",
+              "indeed_url              0\n",
+              "growth_percentage       0\n",
+              "contact_info            0\n",
+              "dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 162
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Оставшиеся поля можно проигнорировать, т.к. заполняемость очень низкая (удалим их)**"
+      ],
+      "metadata": {
+        "id": "IfuTUPkvbHlW"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df14 = df.dropna(subset=['keywords', 'LeadInvestors', 'Accelerator', 'btype'], inplace=True)"
+      ],
+      "metadata": {
+        "id": "6ADWuaBDcEpd"
+      },
+      "execution_count": 167,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df14 = df.isna().sum()"
+      ],
+      "metadata": {
+        "id": "yBf3iuvMcZEg"
+      },
+      "execution_count": 168,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df14"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "18jcbCaPca2v",
+        "outputId": "85dc7bfa-ee8b-414a-8cb0-973a55582fa6"
+      },
+      "execution_count": 169,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "company_name          0\n",
+              "url                   0\n",
+              "city                  0\n",
+              "state                 0\n",
+              "country               0\n",
+              "employees             0\n",
+              "linkedin_url          0\n",
+              "founded               0\n",
+              "Industry              0\n",
+              "GrowjoRanking         0\n",
+              "Previous Ranking      0\n",
+              "estimated_revenues    0\n",
+              "job_openings          0\n",
+              "keywords              0\n",
+              "LeadInvestors         0\n",
+              "Accelerator           0\n",
+              "btype                 0\n",
+              "valuation             0\n",
+              "total_funding         0\n",
+              "product_url           0\n",
+              "indeed_url            0\n",
+              "growth_percentage     0\n",
+              "contact_info          0\n",
+              "dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 169
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df14.info()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vXg3jP-keEBY",
+        "outputId": "41cde84c-fbad-4f06-b87a-714a77324427"
+      },
+      "execution_count": 170,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "<class 'pandas.core.series.Series'>\n",
+            "Index: 23 entries, company_name to contact_info\n",
+            "Series name: None\n",
+            "Non-Null Count  Dtype\n",
+            "--------------  -----\n",
+            "23 non-null     int64\n",
+            "dtypes: int64(1)\n",
+            "memory usage: 924.0+ bytes\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Фрейм готов**"
+      ],
+      "metadata": {
+        "id": "iOp0JYjneJds"
+      }
     }
   ]
 }
